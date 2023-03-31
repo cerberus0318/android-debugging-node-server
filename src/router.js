@@ -1,20 +1,12 @@
 const express = require("express");
-const serverless = require("serverless-http");
-const app = express();
+// Create a router to handle routes
 const router = express.Router();
-const cors = require("cors");
 
-require("dotenv").config({ path: "./config.env" });
-const port = process.env.PORT || 5000;
-
-app.use(cors());
-app.use(express.json());
-
-// 
 const fs = require('fs');
 
-// 
-app.get('/', (req, res) => {
+// Define a route that responds with a JSON object when a GET request is made to the root path
+
+router.get('/', (req, res) => {
   fs.readFile('log.json', (err, data) => {
     if (err) throw err;
     console.log(err)
@@ -24,7 +16,7 @@ app.get('/', (req, res) => {
   });
 })
 
-app.post('/', (req, res) => {
+router.post('/', (req, res) => {
   fs.appendFile('log.json', JSON.stringify(req.query), (err) => {
     if (err) throw err;
     console.log('Users saved!');
@@ -32,16 +24,9 @@ app.post('/', (req, res) => {
   res.send();
 })
 
-app.get('/reset', (req, res) => {
+router.get('/reset', (req, res) => {
   fs.writeFile('log.json', "", (err) => { })
   res.send("reset")
 })
 
-app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
-});
-
-app.use(`/.netlify/functions/api`, router);
-
-module.exports = app;
-module.exports.handler = serverless(app);
+module.exports = router;

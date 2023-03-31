@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server.js"
+    "start": "netlify-lambda serve src",
+    "build": "netlify-lambda build src"
   },
   "keywords": [],
   "author": "",
@@ -16,6 +17,8 @@
     "express": "^4.17.1",
     "mongodb": "^3.6.6",
     "mongoose": "^5.12.4",
-    "nodemon": "^2.0.22"
+    "netlify-lambda": "^2.0.16",
+    "nodemon": "^2.0.22",
+    "serverless-http": "^3.2.0"
   }
 }
